@@ -14,4 +14,13 @@ class Solution:
     
     
     
-#
+#第二次写： 用了老师教的快慢指针。  36ms    94%   14.3M   7%
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        j = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[j] = nums[i]
+                if i != j: nums[i] = 0
+                j = j + 1
+            
