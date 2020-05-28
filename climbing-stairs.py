@@ -51,7 +51,8 @@ class Solution: # 国际站most 法3  O(1) space  40%  20% //怎么没有操作�
             a = tmp
         return b
 
-    
+
+######## test 1   ########  
 class Solution: # test 1  93%   20% //不错
     def climbStairs(self, n):
         if n == 1:
