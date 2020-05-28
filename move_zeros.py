@@ -8,7 +8,7 @@ class Solution:
         count0 = 0
         for i in range(len(nums)):
             if nums[i] == 0:
-                count0 = count0 + 1 
+                count0 = count0 + 1   # ->  count0 += 1
             elif count0 != 0:
                 nums[i-count0], nums[i] = nums[i], 0
     
@@ -19,7 +19,7 @@ class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         j = 0
         for i in range(len(nums)):
-            if nums[i] != 0:
+            if nums[i] != 0:  #-> if nums[i]:
                 nums[j] = nums[i]
                 if i != j: nums[i] = 0
                 j = j + 1
