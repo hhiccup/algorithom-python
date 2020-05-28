@@ -50,3 +50,17 @@ class Solution: # 国际站most 法3  O(1) space  40%  20% //怎么没有操作�
             b = a+b
             a = tmp
         return b
+
+    
+class Solution: # test 1  93%   20% //不错
+    def climbStairs(self, n):
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
+        a, b = 1, 2
+        for i in range(2,n):
+            temp = a + b
+            a = b
+            b = temp
+        return b    
