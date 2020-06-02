@@ -27,3 +27,21 @@ class Solution:   #try2 双指针（ON O1）  正确但是速度20% 比较慢。
                 while i < j and height[j] < height[j + 1]: j -= 1
 
         return result
+    
+    
+#########看了别人的， 可以省去那个min函数#####
+class Solution:   #test1 双指针（ON O1）  正确 速度90% 
+    def maxArea(self, height: List[int]) -> int:
+        result = 0
+        i, j = 0, len(height)-1
+        while i < j:
+            if height[i] < height[j]:
+                result = max(result, height[i]* (j - i))
+                i += 1
+                while i < j and height[i] < height[i - 1]: i += 1
+                continue
+            else:
+                result = max(result, height[j]* (j - i))
+                j -= 1
+                while i < j and height[j] < height[j + 1]: j -= 1
+        return result
