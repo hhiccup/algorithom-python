@@ -195,3 +195,58 @@ class Solution: # BFS  国际站
                     queue.append((node.left, level+1))
                     queue.append((node.right, level+1))
 
+
+
+#################### 5  二叉树的序列化与反序列化 （困难） ##########################
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        valList = []
+        def recur(node):
+            if node:
+                valList.append(str(node.val))
+                recur(node.left)
+                recur(node.right)
+            else:
+                valList.append('#')
+        recur(root)
+#        print(valList)
+        return ','.join(valList)
+        
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        
+        value = iter(data.split(','))
+        def recur():
+            val = next(value)
+            if val == '#':
+                return None
+            node = TreeNode(int(val))
+            node.left = recur()
+            node.right = recur()
+            return node
+        return recur()
+
+        
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.deserialize(codec.serialize(root))
