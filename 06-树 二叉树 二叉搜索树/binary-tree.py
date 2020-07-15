@@ -152,3 +152,46 @@ class Solution: # 看完光头哥 最终优化
     def maxDepth(self, root: TreeNode) -> int:
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right)) if root else 0
 
+
+
+################# 4 二叉树的最小深度 ###############
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+'''
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        elif root.left and root.right:
+            return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
+        elif not root.left and not root.right: # 当前节点没有子节点时，才算是到底了，返回深度
+            return 1  #可优化， 此条件判断可与下面的合并一个！！
+        else:   # !!!注意 ：当前节点只有一个子节点时，要拿到的是子节点的深度，并不是返回1，所求并没有结束
+            return 1 + max(self.minDepth(root.left), self.minDepth(root.right))
+ '''
+
+class Solution: # 光头哥 。。。
+    def minDepth(self, root):
+        if not root: return 0
+        d, D = sorted(map(self.minDepth, (root.left, root.right)))
+        return 1 + (d or D)      
+
+class Solution: # BFS  国际站  
+    def minDepth(self, root):
+        if not root:
+            return 0
+        queue = collections.deque([(root, 1)])
+        while queue:
+            node, level = queue.popleft()
+            if node:
+                if not node.left and not node.right:
+                    return level
+                else:
+                    queue.append((node.left, level+1))
+                    queue.append((node.right, level+1))
+
