@@ -119,4 +119,36 @@ class Solution: #照光头哥的优化下
                 stack += cur.left, cur.right
         return root
 
+################### 3 二叉树的最大深度 ########################
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+'''
+class Solution: #try1 第一次写 几分钟完
+    def maxDepth(self, root: TreeNode) -> int:
+        maxD = 0
+        def recur(node, maxD):
+            if not node:
+                return maxD
+            else: maxD += 1
+            tmp1 = recur(node.left, maxD)
+            tmp2 = recur(node.right, maxD)
+            return max(tmp1, tmp2)
+        return recur(root, maxD)
+
+class Solution: # 看完光头哥 优化
+    def maxDepth(self, root: TreeNode) -> int:  # 函数里面只有if 和 else 就可以优化成一行写法并放到return里
+        if not root:
+            res = 0
+        else:
+            res = 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        return res
+'''
+class Solution: # 看完光头哥 最终优化
+    def maxDepth(self, root: TreeNode) -> int:
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right)) if root else 0
 
