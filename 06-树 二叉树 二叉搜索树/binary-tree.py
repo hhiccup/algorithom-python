@@ -278,4 +278,41 @@ class Solution: #test1 看题解后写
 
             
 
-########################   ############################
+###################### 7 从前序和中序遍历构造二叉树   ############################
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution: # 看过题解后  这种最易懂
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        if len(inorder) == 0:
+            return None
+        root = TreeNode(preorder[0])
+
+        mid = inorder.index(preorder[0]) #获取前序中的根节点在中序中的索引，用于后面切割二者
+
+        root.left = self.buildTree(preorder[1:mid+1], inorder[:mid])
+        root.right = self.buildTree(preorder[mid+1:],inorder[mid+1:])
+        return root
+
+
+class Solution: # 看过题解后  用哈希表（字典）优化   （内存击败100%！）
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        hashmap = {v:i for i,v in enumerate(inorder)}
+
+         #使用左闭右开区间，即preorder[p1,p1)和inorder[i2,i2)
+        def recur(preorder, p1, p2, inorder, i1, i2):
+            if p1 == p2:
+                return None
+            root = TreeNode(preorder[p1])
+
+            mid = hashmap[preorder[p1]] #获取前序中的根节点在中序中的索引，用于后面切割二者
+
+            root.left = recur(preorder, p1+1, p1+1+mid-i1, inorder, i1, mid)
+            root.right = recur(preorder, p1+1+mid-i1, p2, inorder, mid+1, i2)
+            return root
+        return recur(preorder, 0, len(preorder), inorder, 0, len(inorder))
